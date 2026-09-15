@@ -1,0 +1,23 @@
+{
+  "$schema": "https://design.pointsav.com/schemas/component-recipe-v1.json",
+  "name": "working-papers-print",
+  "display_name": "Working Papers — Browser-Native Print Stylesheet",
+  "description": "A single, portable @media print stylesheet shared identically across all 6 /working-papers deployments (gis.woodfinegroup.com, bim.woodfinegroup.com, home.pointsav.com, home.woodfinegroup.com, software.pointsav.com, design.pointsav.com). Browser-native (window.print() + @media print/@page), not server-side PDF generation — each site's underlying HTML-generation code differs (static files, axum+markdown, maud+YAML, minijinja), but this CSS file is identical across all of them. Built 2026-09-15 as part of the JOURNAL /working-papers one-time bootstrap (project-editorial), adapting real, proven techniques from financial-report-layout (page-break discipline, print-color-adjust:exact, the cross-engine table-layout-restatement gotcha) for prose/figure-shaped working-paper content rather than dense financial tables.",
+  "category": "paper",
+  "registry_type": "component",
+  "css_class": "working-papers-print",
+  "variants": [
+    { "name": "chrome-hiding", "description": "Broad attribute/class-name matching (nav, footer, [class*=\"nav\"], [class*=\"breadcrumb\"], etc.) hides each site's own chrome without per-site CSS overrides — deliberately generic since the 6 sites share no common class-naming convention. A site-specific selector is added here only if real chrome survives after applying the file; no per-site fork is maintained." },
+    { "name": "page-break-discipline", "description": "Headings never strand at the bottom of a page (break-after:avoid); tables/blockquotes/figures never split mid-block (break-inside:avoid). Two manual escape-hatch classes (.page-break-before/-after) let a specific paper force a fresh page (e.g. before an Appendix) without becoming the default behavior." },
+    { "name": "table-layout-restatement", "description": "table-layout:fixed and border rules are restated inside @media print itself, not assumed to carry over from screen CSS — some print engines re-resolve table layout at print time and silently drop unrestated rules (documented gotcha, carried over from financial-report-layout's own recipe)." }
+  ],
+  "tokens": [],
+  "aria": "Print-only stylesheet; no interactive states, no ARIA surface of its own. Print output inherits whatever semantic HTML structure the underlying page already has.",
+  "wcag": { "target": "2.2 AA", "note": "print-color-adjust:exact ensures color-coded content (a callout, a table role) is not silently stripped to invisible-on-white by default browser print behavior." },
+  "motion": "None — static print output only.",
+  "open_questions": [
+    "oq-1: this is a v1 bootstrap file, copied as identical literal content into 5 separate site repos rather than served from one shared URL, since the 6 sites are 6 separate deployments with no shared CDN origin today. A future change here requires a coordinated re-copy across all 6, not a single edit — flagged as a real maintenance cost of the current architecture, not solved by this recipe."
+  ],
+  "research_links": [],
+  "registry_dependencies": ["financial-report-layout"]
+}
