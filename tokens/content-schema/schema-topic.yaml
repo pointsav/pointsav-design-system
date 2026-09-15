@@ -7,15 +7,28 @@ frontmatter_contract:
     audience, bcsc_class, language_protocol, last_edited, editor, short_description,
     paired_with]
   optional_fields: [index_type, entities, keynote, cites, source_refs,
-    index_group]  # index_group: string; the Index Topic group this TOPIC/GUIDE belongs
-    # to. Conditionally required (enforced by editorial-lint.py, not this schema) in
-    # any category that has an index_type-bearing file. No schema-level enum of valid
-    # values — validity is "matches a group some Index Topic in this category
-    # declares," checked at commit time against the real files.
+    index_group, journal_refs]  # index_group: string; the Index Topic group this
+    # TOPIC/GUIDE belongs to. Conditionally required (enforced by editorial-lint.py,
+    # not this schema) in any category that has an index_type-bearing file. No
+    # schema-level enum of valid values — validity is "matches a group some Index
+    # Topic in this category declares," checked at commit time against the real
+    # files.
   index_type:
     note: "when present (any value), this document is governed by
       protocol-index-topic.yaml instead of this file's required_sections and
       density_targets — see that schema for the Index Topic variant."
+  journal_refs:
+    type: array
+    default: []
+    purpose: "slugs of JOURNAL papers whose draws_from: list names this article — the
+      inverse half of the self-healing cross-reference mechanism (forward half:
+      JOURNAL draws_from:, in schema-journal.yaml). Machine-only, never rendered to a
+      reader — JOURNAL-redesign master BRIEF Decision #5's zero-outbound-link rule
+      applies symmetrically to this direction too. Derived, not authored: populate by
+      mechanically inverting the JOURNAL corpus's draws_from: lists, never by editorial
+      guess or as a completeness target. Consumed by tool-wiki-core (drift checks) and
+      tool-journal-core (the bidirectional consistency check) — see
+      BRIEF-tool-journal-core.md (project-editorial)."
 
 required_sections:
   order: [lead, body_h2_sections, what_this_is_not, see_also]

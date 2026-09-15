@@ -5,6 +5,20 @@ version: 1.0.0-pilot
 frontmatter_contract:
   required_fields: [title, slug, category, type, content_type, quality, status,
     audience, last_edited, editor, short_description]
+  optional_fields: [journal_refs]
+
+journal_refs:
+  type: array
+  default: []
+  purpose: "slugs of JOURNAL papers whose draws_from: list names this article — the
+    inverse half of the self-healing cross-reference mechanism (forward half:
+    JOURNAL draws_from:, in schema-journal.yaml). Machine-only, never rendered to a
+    reader — JOURNAL-redesign master BRIEF Decision #5's zero-outbound-link rule
+    applies symmetrically to this direction too. Derived, not authored: populate by
+    mechanically inverting the JOURNAL corpus's draws_from: lists, never by editorial
+    guess or as a completeness target. Consumed by tool-wiki-core (drift checks) and
+    tool-journal-core (the bidirectional consistency check) — see
+    BRIEF-tool-journal-core.md (project-editorial)."
 
 title_format:
   imperative_verb_phrase: true

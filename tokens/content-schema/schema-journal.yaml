@@ -6,11 +6,12 @@ draws_from:
   type: array
   default: []
   purpose: "slugs of TOPIC/GUIDE articles whose content this paper's claims actually
-    depend on — the forward half of a self-healing cross-reference mechanism (inverse
-    half is the existing TOPIC/GUIDE journal_ref: field). Populated as the paper is
-    drafted or reconciled, not backfilled speculatively. See
-    BRIEF-journal-research-programme.md 'Self-healing mechanism' for the full design,
-    including the journal-review-queue.jsonl flag-on-change mechanism this field feeds."
+    depend on — the forward half of a self-healing cross-reference mechanism. The
+    inverse half is TOPIC/GUIDE's journal_refs: field (schema-topic.yaml/
+    schema-guide.yaml), added 2026-09-15 — see DESIGN-TOKEN-CHANGE-journal-refs-
+    bidirectional-field.draft.md and BRIEF-tool-journal-core.md (project-editorial)
+    for the full design. Populated as the paper is drafted or reconciled, not
+    backfilled speculatively."
 
 frontmatter_contract:
   required_fields: [title, slug, category, paper_class, state, license, doi,
