@@ -104,6 +104,30 @@
     page-break-after: always;
   }
 
+  /* Landscape opt-in for wide ranking/data tables (e.g. the regional-markets
+     NA/EU ranking papers) — most working papers are prose-first and stay on
+     the default portrait @page above; a section that genuinely needs a wide
+     table opts in with class="landscape" rather than the whole document
+     switching orientation. Uses CSS Paged Media named pages (`@page
+     landscape` + `page: landscape` on the element) — the standards-based way
+     to scope page orientation to part of a document, not the whole thing. */
+  @page landscape {
+    size: letter landscape;
+    margin: 0.45in 0.5in 0.38in 0.5in;
+  }
+  .landscape {
+    page: landscape;
+    break-before: page;
+    break-after: page;
+  }
+  /* Wide tables need more room per column than the generic fixed-layout rule
+     above gives them; landscape sections restate their own table geometry
+     rather than inheriting the narrower portrait default. */
+  .landscape table {
+    table-layout: auto;
+    font-size: 9pt;
+  }
+
   a[href] {
     color: #000 !important;
     text-decoration: none !important;
