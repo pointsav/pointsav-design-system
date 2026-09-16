@@ -3,7 +3,7 @@
    Every custom property name below is a leaf token's canonical id
    ($extensions['com.pointsav.tokens'].id) -- byte-identical to what MCP get_token
    matches on and to the token's own DTCG $extensions id. No translation layer. */
-/* 85 typography/composite leaves are JSON-only (no CSS shorthand exists) -- read via tokens.full.json or get_token, not this file. */
+/* 86 typography/composite leaves are JSON-only (no CSS shorthand exists) -- read via tokens.full.json or get_token, not this file. */
 :root {
   --ps-primitive-color-amber-10: #FDF4E0;
   --ps-primitive-color-amber-60: #C4880E;

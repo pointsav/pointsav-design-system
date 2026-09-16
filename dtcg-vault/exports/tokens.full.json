@@ -1191,6 +1191,25 @@
             "schemaVersion": 1
           }
         }
+      },
+      "mono": {
+        "$value": {
+          "fontFamily": "'IBM Plex Mono', ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', 'Liberation Mono', monospace",
+          "fontSize": "0.9375rem",
+          "fontWeight": 400,
+          "letterSpacing": "0px",
+          "lineHeight": 1.5
+        },
+        "$description": "15/22.5 — general-purpose monospace: cost codes, work-package/record IDs, command-composer syntax, tabular numeric columns (IBM Plex Mono, variable weight 100-900). Companion to the platform's IBM Plex Sans (see wiki-body); promoted from app-privategit-construction's own self-hosted usage (Version 3 Phase 6) to a durable shared token, 2026-09-16.",
+        "$extensions": {
+          "com.pointsav.tokens": {
+            "id": "--ps-primitive-typography-mono",
+            "pillar": "primitive",
+            "layer": null,
+            "family": "typography",
+            "schemaVersion": 1
+          }
+        }
       }
     },
     "viewport": {
