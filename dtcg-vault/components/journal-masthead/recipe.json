@@ -1,0 +1,22 @@
+{
+  "$schema": "https://design.pointsav.com/schemas/component-recipe-v1.json",
+  "name": "journal-masthead",
+  "display_name": "Journal Masthead Notice",
+  "description": "Top-of-paper surface for a /working-papers JOURNAL article: an engine-generated forward-looking/no-investment-advice notice blockquote, followed by a one-line meta-line stating imprint, version, and license. Never hand-authored in the article's own body source — both are assembled from frontmatter at render time, same principle already established for this corpus's render contract.",
+  "category": "paper",
+  "registry_type": "component",
+  "html": "<blockquote class=\"journal-masthead__notice\">{{flsNoticeText}}</blockquote>\n<p class=\"journal-masthead__meta\">Working Paper {{imprint}} · v{{version}} · {{license}}</p>",
+  "css_class": "journal-masthead",
+  "variants": [
+    {
+      "name": "default",
+      "description": "Single-notice, single-meta-line masthead. The notice text is not hardcoded here — it is composed per-site by brand, resolved via tokens/linguistic/register-journal.yaml's forward_looking_notice_by_brand block: PointSav-brand sites (home.pointsav.com, software.pointsav.com, design.pointsav.com) use factory-release-engineering/tokens/legal-tokens-pointsav.yaml's disclaimers.no_investment_advice text — PointSav-brand properties structurally carry no investment/forward-looking-statement disclaimer, per that file's own explicit note. Woodfine-brand sites (home.woodfinegroup.com, bim.woodfinegroup.com, gis.woodfinegroup.com) use factory-release-engineering/tokens/legal-tokens-woodfine.yaml's disclaimers.forward_looking.short — the real securities-law forward-looking-information notice, matching that file's own footer.investment template tier. Resolved 2026-09-23 against both brands' already-vetted disclaimer text directly, not invented for this component."
+    }
+  ],
+  "tokens": ["{semantic.ink-secondary}", "{semantic.border-subtle}", "{primitive.font.family.body}"],
+  "aria": "blockquote is native semantic HTML — no additional ARIA role needed. The meta-line is a plain <p>, not a heading — it must not be picked up by heading-based navigation (e.g. wiki-toc-sidebar) as a section.",
+  "wcag": { "target": "2.2 AA" },
+  "open_questions": [],
+  "research_links": [],
+  "registry_dependencies": ["financial-report-layout"]
+}

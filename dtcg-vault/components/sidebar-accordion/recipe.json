@@ -13,6 +13,10 @@
     {
       "name": "default",
       "description": "Standard categorised left-rail navigation."
+    },
+    {
+      "name": "journal-index",
+      "description": "Persistent, sticky, cross-page paper-index sidebar for a site's /working-papers section — genuinely distinct from wiki-toc-sidebar (that component is a single-article in-page table of contents; this one lists every published paper on the site, visible on every /working-papers page, not just the one currently open). Groups papers by imprint prefix (PDS- / WCP-) as the section headings in the existing accordion structure, one <li> per paper linking to its own page, with aria-current=\"page\" marking whichever paper is currently open. position: sticky within its own column, not fixed to the viewport, so it scrolls out of view with the rest of the page content on a page long enough to exceed it. First real content for this stub variant — none of the 6 /working-papers sites has a persistent multi-paper index today (flat top-nav only on gis.woodfinegroup.com/home.pointsav.com; design.pointsav.com has an unpopulated right-rail), confirmed via direct site check 2026-09-15. This recipe is the design spec each site's own rendering archive implements against, not a claim the implementation is done (app-mediakit-marketing for the two home.* sites; the gis/bim/software sites' own respective archives)."
     }
   ],
   "tokens": [

@@ -1,0 +1,138 @@
+# register-journal.yaml
+# Machine-checkable register/vocabulary rules for JOURNAL artifacts.
+# Craft (voice, worked examples, when to break a rule) lives in
+# pointsav-design-system/editorial-style-guide/guide-journal.md — this file owns only
+# what is countable/greppable. Structural rules (section order, frontmatter contract)
+# live in tokens/content-schema/schema-journal.yaml. A rule lives in exactly one of
+# these three files; the other two link to it rather than restating it.
+
+schema_name: JOURNAL-REGISTER
+version: 1.0.0
+prose_source: pointsav-design-system/editorial-style-guide/guide-journal.md
+schema_companion: pointsav-design-system/tokens/content-schema/schema-journal.yaml
+
+reader_demographic:
+  description: >
+    An individual investor, generally over 60, with ordinary investment literacy but
+    no assumed knowledge of computer science OR real-estate/finance specifically.
+  note: >
+    Jargon from EITHER domain can read as unfamiliar to this reader, not only jargon
+    from outside the paper's own site specialty — a GIS-heavy paper must still gloss
+    its own real-estate terms, not just its technical ones.
+
+analogy_preference:
+  rule: "prefer a traditional/universal analogy over a tech-native one wherever an
+    equally accurate substitute exists"
+  preferred_examples: [bank signature card, land title office, locksmith's key,
+    minute book, filing box vs. bookkeeper's private shorthand ledger]
+  avoid_examples: [Bluetooth pairing, browser padlock icon]
+
+sentence_simplification:
+  mode: light_touch_only
+  forbidden: full_rewrite_to_simple_english
+  note: "operator's own framing: 'what we have is really starting to come together' —
+    calibrate, don't flatten"
+
+length:
+  hard_cap: none
+  note: "whatever genuine accessible completeness requires; do not trim content to
+    hit a target page/word count"
+
+banned_self_referential_patterns:
+  - pattern: "in this platform's own vocabulary"
+  - pattern: "the platform calls this"
+  - pattern: "in our own vocabulary"
+  rule: "state the term directly; never comment on the fact that a term is the
+    platform's own coined vocabulary"
+
+banned_internal_document_narration:
+  rule: "never narrate or reference the existence of an internal document, memo, or
+    BRIEF — not even indirectly ('internal analysis found...', 'a recent review
+    showed...'). Ground every claim in the real, checkable public or platform fact
+    itself, not in the existence of a document that discusses it."
+
+subheading_variety:
+  rule: "no verbatim-repeated subheading across multiple sections in one paper — each
+    subsection heading is content-specific"
+  flagged_example: "'This platform's instance' repeated 3x in one paper — the pattern
+    that surfaced this rule"
+
+numeric_disclosure:
+  default: qualitative
+  rule: "qualitative built-vs-not-built statements are the required default, for
+    honesty about implementation state, without turning the paper into a status
+    report"
+  exact_numbers_belong_in: data_and_reproducibility_section_only
+  exception:
+    max_per_paper: 1
+    condition: "only when the number is genuinely load-bearing to the argued
+      mechanism itself, not merely a status figure (a status brag, however true,
+      does not qualify)"
+
+glossary_discipline:
+  rule: "each site's own wiki glossary is the authoritative term source — use its
+    exact defined term and capitalization on first use, rather than inventing
+    paraphrased vocabulary"
+  sources:
+    - media-knowledge-documentation: glossary-documentation.csv / reference/glossary-documentation.md
+    - media-knowledge-corporate: glossary-corporate.csv / reference/corporate-glossary.md
+    - media-knowledge-projects: glossary-projects.csv / reference/glossary-projects.md (verify exact filename before use — not independently re-confirmed this pass)
+  worked_example: "swap generic 'archive' for the real glossary term Totebox Archive;
+    for buildings specifically, PropertyArchive"
+
+trademark_handling:
+  inline_symbol: forbidden
+  rule: "name a trademark plainly in body prose, with no ™ symbol inline"
+  credit_location: data_and_reproducibility_end
+  visibility: print_only
+  css_class: tm-line
+  source_of_truth: factory-release-engineering/tokens/legal-tokens-woodfine.yaml
+  scope: "credit only the marks actually named in this specific paper, not the full
+    owned list"
+  note: "do NOT source trademark text from tokens/linguistic/ps-protocol-trademark.yaml
+    — confirmed drifted from the real canonical file as of 2026-09-15 (missing
+    Capability Geometry™ entirely; footer execution template omits both MCorp™ and
+    Capability Geometry™). Whether ps-protocol-trademark.yaml itself needs a refresh
+    pass is a separate, larger change — not addressed by this file."
+
+imprint_format:
+  pattern: '^(PDS|WCP)-\d{3}$'
+  permanent: true
+  rationale: "sequential-only, no year — see schema-journal.yaml field_rules.imprint"
+
+entity_naming:
+  rule: "follow project-editorial's entity-naming-convention.md capacity test —
+    Woodfine for governing/promoting/disclosing acts, MCorp only for genuine
+    delegated-task sentences, PointSav for the software platform"
+  cross_reference: project-editorial .agent/rules/entity-naming-convention.md
+
+banned_vocabulary_cross_reference:
+  rule: "read tokens/linguistic/vocabulary-banned-*.yaml directly for the standing
+    hype/corporate/competitor-naming ban — not restated here"
+
+forward_looking_notice_by_brand:
+  rule: "the masthead's notice text (journal-masthead component) is sourced per the
+    paper's brand, not one shared text across all 6 sites — grounded directly in
+    each brand's own canonical legal-tokens file, not invented here"
+  pointsav_sites: [home.pointsav.com, software.pointsav.com, design.pointsav.com]
+  pointsav_source: "factory-release-engineering/tokens/legal-tokens-pointsav.yaml
+    disclaimers.no_investment_advice — PointSav-brand properties structurally carry
+    no investment/forward-looking-statement disclaimer per that file's own explicit
+    note ('PointSav-brand properties do not carry investment disclaimers'); use the
+    operational/no-investment-advice text instead, not a securities FLS notice."
+  woodfine_sites: [home.woodfinegroup.com, bim.woodfinegroup.com, gis.woodfinegroup.com]
+  woodfine_source: "factory-release-engineering/tokens/legal-tokens-woodfine.yaml
+    disclaimers.forward_looking.short — the real securities-law forward-looking-
+    information notice, matching that file's own footer.investment template tier."
+  note: "resolves journal-masthead's open_questions[oq-1] against the two brands'
+    already-existing, already-vetted disclaimer text rather than drafting new legal
+    language — see both files directly before ever changing this mapping."
+
+dual_audience_note:
+  status: retired_this_pass
+  note: "an earlier plan explored a two-simulated-reader (institutional + domain-
+    expert-academic) test as the register-decision mechanism. The actual work this
+    version encodes was decided empirically against a single locked reader persona
+    (see reader_demographic above) through direct, iterative operator feedback on two
+    real papers, not the two-reader framework. Recorded here so a future pass does not
+    reintroduce the two-reader model believing it was never tried."

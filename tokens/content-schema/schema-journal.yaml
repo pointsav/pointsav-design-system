@@ -1,46 +1,158 @@
 schema_name: JOURNAL
-prose_source: media-knowledge-documentation/.internal/style-guides/guide-journal.md
-version: 1.0.0-pilot
-
-draws_from:
-  type: array
-  default: []
-  purpose: "slugs of TOPIC/GUIDE articles whose content this paper's claims actually
-    depend on — the forward half of a self-healing cross-reference mechanism. The
-    inverse half is TOPIC/GUIDE's journal_refs: field (schema-topic.yaml/
-    schema-guide.yaml), added 2026-09-15 — see DESIGN-TOKEN-CHANGE-journal-refs-
-    bidirectional-field.draft.md and BRIEF-tool-journal-core.md (project-editorial)
-    for the full design. Populated as the paper is drafted or reconciled, not
-    backfilled speculatively."
+prose_source: pointsav-design-system/editorial-style-guide/guide-journal.md
+register_source: pointsav-design-system/tokens/linguistic/register-journal.yaml
+version: 2.0.0
+supersedes: 1.0.0-pilot
+superseded_reason: >
+  v1 described academic-paper apparatus (peer-reviewer primary audience, mandatory
+  limitations section, claims/falsification tables, doi/preprint_posted frontmatter)
+  that direct operator feedback across a full voice/structure correction pass
+  (project-editorial, 2026-09) replaced with a plain-accessible working-paper format.
+  See BRIEF-journal-format-voice-redesign.md for the full session record.
 
 frontmatter_contract:
-  required_fields: [title, slug, category, paper_class, state, license, doi,
-    preprint_posted, cite_as, corresponding_author, version, house_profile]
-  house_profile:
-    purpose: "the one per-site voice parameter — names which of the 3 house profiles
-      (documentation/corporate/projects) or a product-site-specific variant this paper's
-      register follows, rather than inventing a new VOICE token type per site"
-    allowed_values: [documentation, corporate, projects, product-site-pointsav,
-      product-site-woodfine]
+  required_fields: [schema, slug, title, site, imprint, thesis, abstract, state,
+    version, published, updated, cite_as, license, prepared_by]
+  optional_fields: [subtitle, keywords]
+  machine_only_fields: [cites, draws_from, source_refs]
+  removed_fields:
+    - doi
+    - preprint_posted
+    - corresponding_author
+    - category
+    - paper_class
+    - house_profile
+  field_rules:
+    title:
+      max_words: 12
+    subtitle:
+      max_words: 15
+      required: false
+    site:
+      purpose: "which of the 6 product sites' own /research (working-papers) page this
+        paper publishes to — replaces v1's house_profile 3-wiki/2-way-split guess, now
+        resolved to the real product-site census"
+      allowed_values: [home.pointsav.com, software.pointsav.com, design.pointsav.com,
+        home.woodfinegroup.com, bim.woodfinegroup.com, gis.woodfinegroup.com]
+    imprint:
+      format: sequential_no_year
+      pattern: '^(PDS|WCP)-\d{3}$'
+      note: "PDS- prefix for PointSav-site papers, WCP- for Woodfine-site papers.
+        Permanent once assigned — never changes on revision, only `version:` does.
+        Deliberately carries no year: an earlier PDS-YYYY-NN scheme was rejected
+        because a year baked into a permanent identifier ages the document to a
+        reader (operator's own reasoning) even though the paper itself hasn't
+        changed — RFC and ISO standard numbers set the real-world precedent this
+        format follows."
+    thesis:
+      max_words: 30
+      purpose: "one directional claim, restated as sentence one of the body lead"
+    abstract:
+      word_range_guidance: [150, 250]
+      note: "a guidance range, not a hard gate — the corpus carries no overall length
+        cap (operator: accessible completeness over a page/word ceiling); this range
+        exists only to keep the abstract itself scannable"
+    state:
+      allowed_values: [draft, published]
+    version:
+      semver: true
+      starts_at: 0.1.0
+    prepared_by:
+      fixed_value: "Woodfine Management Corp."
+      note: "institutional byline only — replaces v1's corresponding_author and any
+        contributors: list of named individuals. No named person appears in JOURNAL
+        frontmatter or body."
+    cites:
+      type: array
+      default: []
+      purpose: "zero-outbound-link body prose (see body_structure.references below)
+        still needs a real citation registry entry per external work referenced"
+    draws_from:
+      type: array
+      default: []
+      purpose: "unchanged from v1 — slugs of TOPIC/GUIDE articles whose content this
+        paper's claims depend on; machine-only, never rendered in body"
+    source_refs:
+      purpose: "internal SHA256/commit traceability to source ingest material —
+        frontmatter-only; never surfaced in body, including Data and reproducibility"
 
-required_sections:
-  order: [abstract, introduction, methods_or_methodology, findings_or_results,
-    limitations, conclusion, appendix_optional]
-  abstract:
-    claims_with_evidence: true
-  limitations:
+body_structure:
+  order: [masthead, meta_line, lead, thesis_section, problem_section,
+    composition_sections, what_this_changes_section, open_invitation_section,
+    conclusion_section, references, contributors, how_produced, disclosures,
+    data_and_reproducibility]
+  masthead:
+    component: journal-masthead
+    hand_authored: false
+    note: "engine-generated from frontmatter per the render-contract principle already
+      established for this corpus (site, version, cite_as, license) — never a
+      hand-authored notice blockquote in the body source file itself"
+  meta_line:
+    format: "Working Paper {imprint} · v{version} · {license}"
+    note: "no institutional-name prefix"
+  lead:
+    heading: none
+    paragraph_count: [2, 3]
+    thesis_in_sentence_one: true
+    posture: directional
+    note: "states the thesis as a direction being argued, not a completed-fact claim"
+  composition_sections:
+    min_count: 2
+    max_count: 4
+    each_own_heading: true
+    forbidden: repeated_verbatim_subheading_across_sections
+    note: "each composition-piece section opens with plain-language first-principles
+      framing before narrowing to the platform's own instance of the mechanism — this
+      ordering (concept before instance) is itself the fix for the flagged 'reads like
+      AI' pattern of leading with implementation status"
+  open_invitation_section:
     required: true
-    purpose: "same anticipation principle as TOPIC's what_this_is_not — a JOURNAL that
-      omits its own limits reads as institutional puffery, not leapfrog-quality research"
+    note: "genuine, specific, named domain-expert questions — not a generic call for
+      feedback"
+  references:
+    min_real_working_links: 1
+    note: "body prose stays zero-outbound-link (unchanged from v1); this back-matter
+      section is the one place at least one real citation must carry a working URL —
+      not every entry needs one"
+  contributors:
+    fixed_text: "Prepared by Woodfine Management Corp."
+  how_produced:
+    fixed_text: "AI assistance was used in preparing and revising this paper."
+  disclosures:
+    heading_exact_string: "Disclosures"
+    merges: [conflict_of_interest, funding, forward_looking_statement]
+    fls_sentence_lock: "Woodfine direct-hold solution"
+    fls_sentence_forbidden: "Woodfine partnership or direct-hold solution"
+  data_and_reproducibility:
+    plain_language_required: true
+    note: "plain language even where the underlying fact is technical or legal —
+      no jargon dump just because the fact itself is exact"
+    trademark_line:
+      position: end_of_section
+      visibility: print_only
+      component_class: tm-line
+      source: "factory-release-engineering/tokens/legal-tokens-woodfine.yaml
+        (trademarks.statement, marks actually named in this specific paper only —
+        not the full owned list)"
+      note: "screen-hidden because the site's own global footer already carries the
+        full trademark block on screen; shown under @media print because the print
+        stylesheet (working-papers-print.css) hides nav/footer entirely, which would
+        otherwise drop the notice from a printed copy"
 
-plain_accessible_narrative_test:
-  note: "per guide-journal.md's 2026-07-14 addition — body must be readable start to
-    finish by a competent generalist without parsing an inline equation; dense
-    derivations/proofs belong in an Appendix, cited from the body"
+removed_sections:
+  - name: limitations
+    reason: "a dedicated gaps/limitations section reads as institutional
+      self-flagellation to this reader; fold into 1-2 blunt present-tense sentences
+      inside the relevant composition section instead"
+  - name: claims_and_falsification_table
+    reason: "no claims/falsification table of any kind, any format"
+  - name: methods_or_methodology / findings_or_results (as separate mandatory sections)
+    reason: "replaced by the composition_sections model — each section argues one
+      piece of the thesis, not a methods/results split"
 
-back_matter:
-  required_fields: [conflict_of_interest, funding, data_availability]
-
-note: "JOURNALs do not publish to the 3 media-knowledge wikis — see the product-site
-  census in journal-registry.md (project-editorial). This schema governs paper structure
-  regardless of which of the 6 product sites' /research page eventually renders it."
+register_rules_reference: register-journal.yaml
+render_contract_reference: SPEC-journal-wiki-render-contract.md
+note: "JOURNALs publish to each of the 6 product sites' own /research
+  (working-papers) page — see the product-site census in journal-registry.md
+  (project-editorial). This schema governs paper structure regardless of which site
+  renders it."

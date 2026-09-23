@@ -144,3 +144,21 @@
     line-height: 1.4;
   }
 }
+
+/* Print-only trademark credit line. Screen-hidden by default because each site's own
+   global footer already carries the full trademark block on screen; shown only when
+   printing, because working-papers-print.css's chrome-hiding rule above removes
+   nav/footer entirely from a printed copy, which would otherwise drop the notice from
+   a printed working paper. Content sourced per-paper from
+   factory-release-engineering/tokens/legal-tokens-woodfine.yaml trademarks.statement,
+   scoped to only the marks that specific paper actually names — see
+   tokens/linguistic/register-journal.yaml's trademark_handling block. */
+.tm-line {
+  display: none;
+}
+
+@media print {
+  .tm-line {
+    display: block;
+  }
+}
