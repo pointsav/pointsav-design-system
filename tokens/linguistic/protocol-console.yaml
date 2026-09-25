@@ -1,6 +1,6 @@
 protocol_name: CONSOLE
-standard: Universal Sovereign Disclosure
-description: The instruction set for the Sovereign Command Ledger interface. It legally defines the F-Key Taxonomy and prohibits Web 2.0 SaaS paradigms.
+standard: Universal Operator-Controlled Disclosure
+description: The instruction set for the Operator-Controlled Command Ledger interface. It legally defines the F-Key Taxonomy and prohibits Web 2.0 SaaS paradigms.
 
 operational_rules:
   fiduciary_mandate:

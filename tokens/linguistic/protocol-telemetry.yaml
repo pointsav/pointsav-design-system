@@ -7,7 +7,7 @@ rules:
   data_fidelity:
     - "All raw telemetry data streams MUST be ingested and stored with 100% fidelity to the source event, mirroring `protocol-extract.yaml`'s zero-loss principle."
     - "Zero summarization, alteration, or thematic injection is permitted at the point of ingestion or within the raw telemetry record itself."
-  data_sovereignty:
+  data_locality:
     - "All edge computing telemetry, sensor data, and operational logs MUST remain localized within PointSav Private Networks to prevent algorithmic scraping by public cloud networks."
     - "Egress of raw telemetry data is strictly prohibited unless explicitly mandated by Regulated Reporting Entities and routed via Totebox Orchestration™ with an immutable Audit Record."
   contextual_isolation:
@@ -19,4 +19,4 @@ rules:
   compliance_logging:
     - "Maintain perfect, immutable, and append-only logs of all telemetry data to satisfy the continuous disclosure and audibility requirements of Regulated Reporting Entities, aligned with `Audit_Record_Contract`."
   reporting_syntax:
-    - "While raw telemetry remains an unadulterated ledger, any human-readable reporting, alerts, or system logs synthesized from this data MUST employ the Active Present Tense exclusively (e.g., 'detects', 'routes', 'isolates') to reflect real-time sovereign authority."
+    - "While raw telemetry remains an unadulterated ledger, any human-readable reporting, alerts, or system logs synthesized from this data MUST employ the Active Present Tense exclusively (e.g., 'detects', 'routes', 'isolates') to reflect real-time operator-controlled authority."

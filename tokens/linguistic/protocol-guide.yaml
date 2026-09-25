@@ -1,5 +1,5 @@
 protocol_name: GUIDE
-standard: Universal Sovereign Disclosure
+standard: Universal Operator-Controlled Disclosure
 description: The instruction set for physical execution. It uses strictly imperative commands.
 
 operational_rules:

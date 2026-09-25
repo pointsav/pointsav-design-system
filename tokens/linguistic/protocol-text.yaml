@@ -1,6 +1,6 @@
 protocol_name: TEXT
-standard: Universal Sovereign Disclosure
-description: Strict linguistic and visual protocol for Sovereign Repository documentation, enforcing Bloomberg Terminal aesthetics and objective engineering facts.
+standard: Universal Operator-Controlled Disclosure
+description: Strict linguistic and visual protocol for Operator-Controlled Repository documentation, enforcing Bloomberg Terminal aesthetics and objective engineering facts.
 operational_rules:
   # 1. Engineering Factuality (BCSC Alignment)
   prohibit_forward_looking_statements: true  # Do not use "will", "plans to", or "is going to". State current physical reality.

@@ -55,7 +55,7 @@ lead_patterns:
         source: "register-documentation.yaml positive example"
         notes: |
           Engineering reader: 'resolves locally' → local compute tier.
-          Institutional reader: 'never appears on a cloud billing statement' → cost and sovereignty.
+          Institutional reader: 'never appears on a cloud billing statement' → cost and operator control.
           Two readers, one sentence.
       - text: "The three-tier compute architecture routes every inference call to local hardware first, reaching external APIs only when local capacity is insufficient."
         word_count: 22
